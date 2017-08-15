@@ -1,0 +1,70 @@
+import java.util.Scanner;
+class PrimeNumbers {
+static int counter=0;
+    public static void main(String []args){
+        PrimeNumbers m = new PrimeNumbers();
+        System.out.println("Enter two digits. \nProgram will count how many prime numbers is between them" +
+                "\n and optionally show you all prime numbers from the range. \n If you want to check is number prime" +
+                " just type it twice.");
+        int digit1 = m.reader();
+        int digit2 = m.reader();
+
+        if (digit1<=0 || digit2<=0){
+            System.out.println("Digits must be positive, there is no negative prime numbers.");
+        }
+        else if (digit1==digit2) {
+            checker(digit1,"N");
+            if (counter==1) {
+                System.out.print("You gave same numbers and " + digit1 + " is prime number.");
+            } else {
+                System.out.print("You gave same numbers and " + digit1 + " is not prime number.");
+            }
+        }
+        else {
+            System.out.println("Do you want print out all prime numbers? (Y/N)");
+            Scanner scan = new Scanner(System.in);
+            String YesOrNo = scan.next();
+            if (digit1 < digit2) {
+                for (int i = digit1; i <= digit2; i++) {
+                    checker(i, YesOrNo);
+                }
+                System.out.println("\n\nBetween (" + digit1 + ") and (" + digit2 + ") there is " + counter + " prime number(s).");
+            }
+            else{
+                for (int i = digit2; i <= digit1; i++) {
+                    checker(i, YesOrNo);
+                }
+                System.out.println("\nBetween (" + digit2 + ") and (" + digit1 + ") there is " + counter + " prime number(s).");
+
+            }
+        }
+    }
+     public static int reader(){
+        Scanner read = new Scanner(System.in);
+        int r = read.nextInt();
+        return r;
+     }
+     public static void checker(int digit, String s){
+
+         boolean verifier=true;
+         if (digit <2){
+             verifier = false;
+         }
+         else if (digit==2){
+             verifier = true;
+         }
+         else {
+             for (int i=2; i < (digit /2 +1); i++){
+                 if (digit % i == 0){
+                     verifier = false;
+                 }
+             }
+         }
+         if (verifier==true){
+             if(s.equals("y") || s.equals("Y")){
+                 System.out.print(digit + " ");
+             }
+             counter++;
+         }
+     }
+}
